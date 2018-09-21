@@ -13,7 +13,7 @@ CONTADOR=1
 VERBOSE=0
 SIMBOLOS=",.-_!%*+\$"
 SECONDS=0
-
+COMBOS=6966714    #Combinaciones por palabra en la lista
 
 
 printHelp() {
@@ -92,9 +92,10 @@ fi
 LINEAS=$(cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sort | uniq | wc -l)
 
 echo
-echo -e "$OK ${GREEN}[OK!]${NOCOL} Comenzamos a generar el diccionario"
-echo -e "$OK Generando combinaciones para combinaciones para $LINEAS palabras" 
-echo -e "Tamaño estimado del archivo de salida: $TAMANO"
+echo -e "$OK ${GREEN}[TODO OK!]${NOCOL} Comenzamos a crear el diccionario"
+echo -e "Palabras de entrada: \t\t$LINEAS" 
+echo -e "Combinaciones a crear: \t\t$(expr $LINEAS \* $COMBOS ) " 
+echo -e "Tamaño de fichero:\t\t$(expr $LINEAS \* 104)MB"
 
 #Limpiamos la entrada de tildes, espacios, líneas vacias, pasamos a minúsculas...
 cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sort | uniq | sed 'y/áÁàÀãÃâÂéÉêÊíÍóÓõÕôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/' | while read NOMBRE
@@ -395,6 +396,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
 echo
 echo -e "Palabras generadas: \\t$(tput bold)$(wc -l $SALIDA | awk '{print $1}')$(tput sgr0)"
 echo -e "Tamaño de archivo: \\t$( du -lh $SALIDA | cut -f1)"
-echo -e "Tiempo total: \\t\\t$SECONDS segundos"
+TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'$((%s/3600/24)) días %H horas %M minutos %S segundos')")
+echo -e "Tiempo total: \\t\\t$TIEMPO"
+#echo -e "Tiempo total: \\t\\t$SECONDS segundos"
 echo
 echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito$NOCOL"
+
