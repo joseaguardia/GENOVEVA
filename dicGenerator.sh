@@ -16,10 +16,9 @@ SIMBOLOS=",.-_!%*+\$"
 printHelp() {
     echo
     echo "Uso:"
-    echo "$0 -i inputFile -o outputFile [-v]"
+    echo "$0 -i inputFile -o outputFile"
     echo "-i: archivo de entrada que contienen las palabras base"
     echo "-o: archivo de salida"
-    echo "-v: modo verbose (muestra cada entrada por pantalla)"
 }
 
 printInfo() {
@@ -39,7 +38,7 @@ printInfo() {
 	
 
 #Pasamos como parámetros las opciones
-    while getopts i:o:v OPT $@; do
+    while getopts i:o: OPT $@; do
             case $OPT in
                 i) # archivo de entrada
                    ENTRADA="$OPTARG"
@@ -47,7 +46,6 @@ printInfo() {
 				o) # archivo de salida
                    SALIDA="$OPTARG"
                    ;;
-                v) VERBOSE=1
             esac
     done
 	
@@ -55,7 +53,8 @@ printInfo() {
 #Función de progreso
 prog() {
     local w=80 p=$1;  shift
-    printf -v dots "%*s" "$(( $p*$w/${LINEAS} ))" ""; dots=${dots// /.};
+    printf -v dots "%*s" "$(( $p*$w/100 ))" ""; dots=${dots// /.};
+    #printf -v dots "%*s" "$(( $p*$w/${LINEAS} ))" ""; dots=${dots// /.};
     printf "\r\e[K|%-*s| %3d %% %s" "$w" "$dots" "$p" "$*"; 
 }
 
@@ -97,6 +96,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
     do
        
         echo -e "$OK Generando combinaciones para $NOMBRE" 
+        prog "1" Generando $NOMBRE
         #prog "$CONTADOR" Generando $NOMBRE
         CONTADOR=$((CONTADOR+1))
  
@@ -110,6 +110,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
         echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g' | sed 'y/aeioAEIO/43104310/' >> $SALIDA       #Nombe capitalizado L33t Solo vocales
         echo ${NOMBRE} | tr [:lower:] [:upper:] | sed 'y/aeioAEIO/43104310/' >> $SALIDA
        
+        prog "10" Generando $NOMBRE
         #l33t completo de vocales y 's' si lleva "S" el nombre:
         if [[ $NOMBRE == *[Ss]* ]]; then
 
@@ -142,10 +143,6 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             echo ${NOMBRE} | tr [:lower:] [:upper:]| sed 'y/oO/00/' >> $SALIDA
         fi
         
-
-        
-
-
 
         #Añadimos un símbolo detrás
         for (( i=0; i<${#SIMBOLOS}; i++ ))
@@ -192,21 +189,198 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
 
 
         #Secuencia de números
-        echo -e ${NOMBRE}{1..9} | tr [:space:] \\n >> $SALIDA 
+        echo -e ${NOMBRE}{0..9} | tr [:space:] \\n >> $SALIDA 
         echo -e ${NOMBRE}{00..99} | tr [:space:] \\n >> $SALIDA
         echo -e ${NOMBRE}{000..999} | tr [:space:] \\n >> $SALIDA
         echo -e ${NOMBRE}{0000..9999} | tr [:space:] \\n >> $SALIDA
 
-        echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){1..9} | tr [:space:] \\n >> $SALIDA 
+        prog "5" Generando $NOMBRE
+        echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){0..9} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){00..99} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){000..999} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){0000..9999} | tr [:space:] \\n >> $SALIDA
 
-        echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){1..9} | tr [:space:] \\n >> $SALIDA 
+        prog "10" Generando $NOMBRE
+        echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){0..9} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){00..99} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){000..999} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){0000..9999} | tr [:space:] \\n >> $SALIDA
-    
+   
+        prog "20" Generando $NOMBRE
+        #Fechas ddmmyyyy 
+        echo -e ${NOMBRE}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA 
+        echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA 
+        echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA 
+
+        prog "30" Generando $NOMBRE
+        #Fechas ddmmyy
+        echo -e ${NOMBRE}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
+        echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
+        echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
+
+#Aquí falla
+
+        prog "45" Generando $NOMBRE
+        #Simbolo entre nombre y secuencia de números
+
+        for (( i=0; i<${#SIMBOLOS}; i++ ))
+        do
+echo "1112345" >> $SALIDA
+            echo "${NOMBRE}${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+            echo "${NOMBRE}${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "${NOMBRE}${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+            echo "${NOMBRE}${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+            echo "${NOMBRE}${SIMBOLOS:$1:1}{01..31}{01..12}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "${NOMBRE}${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){01..31}{01..12}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+            echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:])${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:])${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:])${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:])${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:])${SIMBOLOS:$1:1}{01..31}{01..12}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:])${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            echo "$(echo ${NOMBRE} | sed 'y/sSaeioAeio/$$43104310/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed 'y/sSaeioAeio/$$43104310/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed 'y/sSaeioAeio/$$43104310/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed 'y/sSaeioAeio/$$43104310/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed 'y/sSaeioAeio/$$43104310/')${SIMBOLOS:$1:1}{01..31}{01..12}{00..99} | tr [:space:] \\n" >> $SALIDA
+            echo "$(echo ${NOMBRE} | sed 'y/sSaeioAeio/$$43104310/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            
+            if [[ $NOMBRE == *[Ss]* ]]; then
+
+                echo "$(echo ${NOMBRE} | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/sS/$$/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            fi
+            
+            if [[ $NOMBRE == *[aA]* ]]; then
+
+                echo "$(echo ${NOMBRE} | sed 'y/aA/44/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/aA/44/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/aA/44/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/aA/44/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/aA/44/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/aA/44/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/aA/44/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/aA/44/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/aA/44/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/aA/44/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/aA/44/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/aA/44/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/aA/44/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/aA/44/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/aA/44/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            fi
+
+
+            
+            if [[ $NOMBRE == *[sS]* ]]; then
+
+                echo "$(echo ${NOMBRE} | sed 'y/eE/33/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/eE/33/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/eE/33/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/eE/33/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/eE/33/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/eE/33/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/eE/33/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/eE/33/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/eE/33/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/eE/33/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/eE/33/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/eE/33/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/eE/33/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/eE/33/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/eE/33/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            fi
+            
+            if [[ $NOMBRE == *[Ss]* ]]; then
+
+                echo "$(echo ${NOMBRE} | sed 'y/iI/11/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/iI/11/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/iI/11/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/iI/11/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/iI/11/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/iI/11/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/iI/11/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/iI/11/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/iI/11/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/iI/11/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/iI/11/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/iI/11/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/iI/11/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/iI/11/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/iI/11/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            fi
+            
+            if [[ $NOMBRE == *[Ss]* ]]; then
+
+                echo "$(echo ${NOMBRE} | sed 'y/oO/00/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/oO/00/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/oO/00/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/oO/00/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed 'y/oO/00/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/oO/00/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/oO/00/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/oO/00/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/oO/00/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g') | sed 'y/oO/00/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/oO/00/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/oO/00/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/oO/00/')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/oO/00/')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n" >> $SALIDA
+                echo "$(echo ${NOMBRE} | tr [:lower:] [:upper:]) | sed 'y/oO/00/')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n" >> $SALIDA
+
+
+            fi
+        done
+
+        prog "100" Generando $NOMBRE
 
     done 
-
