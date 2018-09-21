@@ -224,14 +224,12 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
 
-#Aquí falla
 
-        prog "45" Generando combinaciones para $NOMBRE
+        prog "40" Generando combinaciones para $NOMBRE
         #Simbolo entre nombre y secuencia de números
 
         for (( i=0; i<${#SIMBOLOS}; i++ ))
         do
-echo "1112345" >> $SALIDA
             echo -e ${NOMBRE}${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n >> $SALIDA
             echo -e ${NOMBRE}${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n >> $SALIDA
             echo -e ${NOMBRE}${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n >> $SALIDA
@@ -314,7 +312,7 @@ echo "1112345" >> $SALIDA
 
 
             
-            if [[ $NOMBRE == *[sS]* ]]; then
+            if [[ $NOMBRE == *[eE]* ]]; then
 
                 echo -e $(echo ${NOMBRE} | sed 'y/eE/33/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n >> $SALIDA
                 echo -e $(echo ${NOMBRE} | sed 'y/eE/33/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n >> $SALIDA
@@ -338,7 +336,7 @@ echo "1112345" >> $SALIDA
 
             fi
             
-            if [[ $NOMBRE == *[Ss]* ]]; then
+            if [[ $NOMBRE == *[iI]* ]]; then
 
                 echo -e $(echo ${NOMBRE} | sed 'y/iI/11/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n >> $SALIDA
                 echo -e $(echo ${NOMBRE} | sed 'y/iI/11/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n >> $SALIDA
@@ -362,7 +360,7 @@ echo "1112345" >> $SALIDA
 
             fi
             
-            if [[ $NOMBRE == *[Ss]* ]]; then
+            if [[ $NOMBRE == *[oO]* ]]; then
 
                 echo -e $(echo ${NOMBRE} | sed 'y/oO/00/')${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n >> $SALIDA
                 echo -e $(echo ${NOMBRE} | sed 'y/oO/00/')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n >> $SALIDA
