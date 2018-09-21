@@ -103,8 +103,18 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
     do
        
         echo -e "$OK Generando combinaciones para combinaciones para $NOMBRE" 
-        prog "1" Generando combinaciones para $NOMBRE
-        #prog "$CONTADOR" Generando combinaciones para $NOMBRE
+
+        #Para mostrar la última palabra generada
+        #while /bin/true; do
+        until [ $(ps -ef | grep -v grep | grep -c dicGenerator.sh) -le 2 ] ; do
+            echo -ne "\\rÚltima entrada:\\t\\t$(tail -1 $SALIDA)" 
+            if [ $(ps -ef | grep -v grep | grep -c dicGenerator.sh) -le 2 ]; then
+                break
+            fi
+            sleep 1
+        done &
+
+
         CONTADOR=$((CONTADOR+1))
  
         #Nombre normal, capitalizado, mayúsculas:
@@ -117,7 +127,6 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
         echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g' | sed 'y/aeioAEIO/43104310/' >> $SALIDA       #Nombe capitalizado L33t Solo vocales
         echo ${NOMBRE} | tr [:lower:] [:upper:] | sed 'y/aeioAEIO/43104310/' >> $SALIDA
        
-        prog "10" Generando combinaciones para $NOMBRE
         #l33t completo de vocales y 's' si lleva "S" el nombre:
         if [[ $NOMBRE == *[Ss]* ]]; then
 
@@ -201,32 +210,27 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
         echo -e ${NOMBRE}{000..999} | tr [:space:] \\n >> $SALIDA
         echo -e ${NOMBRE}{0000..9999} | tr [:space:] \\n >> $SALIDA
 
-        prog "5" Generando combinaciones para $NOMBRE
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){0..9} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){00..99} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){000..999} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){0000..9999} | tr [:space:] \\n >> $SALIDA
 
-        prog "10" Generando combinaciones para $NOMBRE
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){0..9} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){00..99} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){000..999} | tr [:space:] \\n >> $SALIDA
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){0000..9999} | tr [:space:] \\n >> $SALIDA
    
-        prog "20" Generando combinaciones para $NOMBRE
         #Fechas ddmmyyyy 
         echo -e ${NOMBRE}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA 
 
-        prog "30" Generando combinaciones para $NOMBRE
         #Fechas ddmmyy
         echo -e ${NOMBRE}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
         echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:]){01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA 
 
 
-        prog "40" Generando combinaciones para $NOMBRE
         #Simbolo entre nombre y secuencia de números
 
         for (( i=0; i<${#SIMBOLOS}; i++ ))
@@ -386,7 +390,6 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             fi
         done
 
-        prog "100" Generando combinaciones para $NOMBRE
 
         echo -e " $OK"
 
@@ -401,4 +404,7 @@ echo -e "Tiempo total: \\t\\t$TIEMPO"
 #echo -e "Tiempo total: \\t\\t$SECONDS segundos"
 echo
 echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito$NOCOL"
+
+
+
 
