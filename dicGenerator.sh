@@ -93,16 +93,18 @@ LINEAS=$(cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | gre
 
 echo
 echo -e "$OK ${GREEN}[TODO OK!]${NOCOL} Comenzamos a crear el diccionario"
+echo
 echo -e "Palabras de entrada: \t\t$LINEAS" 
 echo -e "Combinaciones a crear: \t\t$(expr $LINEAS \* $COMBOS ) " 
-echo -e "Tamaño de fichero:\t\t$(expr $LINEAS \* 104)MB"
-
+echo -e "Tamaño de fichero est.:\t\t$(expr $LINEAS \* 104)MB"
+echo
 #Limpiamos la entrada de tildes, espacios, líneas vacias, pasamos a minúsculas...
 cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sort | uniq | sed 'y/áÁàÀãÃâÂéÉêÊíÍóÓõÕôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/' | while read NOMBRE
     
     do
        
-        echo -e "$OK Generando combinaciones para combinaciones para $NOMBRE" 
+        echo -e "$OK Generando combinaciones para $NOMBRE" 
+        echo
 
         #Para mostrar la última palabra generada
         #while /bin/true; do
@@ -404,7 +406,4 @@ echo -e "Tiempo total: \\t\\t$TIEMPO"
 #echo -e "Tiempo total: \\t\\t$SECONDS segundos"
 echo
 echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito$NOCOL"
-
-
-
 
