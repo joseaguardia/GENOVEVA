@@ -19,9 +19,10 @@ COMBOS=6966714    #Combinaciones por palabra en la lista
 printHelp() {
     echo
     echo "Uso:"
-    echo "$0 -i inputFile -o outputFile"
+    echo "$0 -i inputFile -o outputFile [-v]"
     echo "-i: archivo de entrada que contienen las palabras base"
     echo "-o: archivo de salida"
+    echo "-v: modo verbose. Muestra la última entrada generada y otra información"
 }
 
 printInfo() {
@@ -41,7 +42,7 @@ printInfo() {
 	
 
 #Pasamos como parámetros las opciones
-    while getopts i:o: OPT $@; do
+    while getopts i:o:v OPT $@; do
             case $OPT in
                 i) # archivo de entrada
                    ENTRADA="$OPTARG"
@@ -49,17 +50,10 @@ printInfo() {
 				o) # archivo de salida
                    SALIDA="$OPTARG"
                    ;;
+                v) VERBOSE=1
             esac
     done
 	
-
-#Función de progreso
-prog() {
-    local w=80 p=$1;  shift
-    printf -v dots "%*s" "$(( $p*$w/100 ))" ""; dots=${dots// /.};
-    #printf -v dots "%*s" "$(( $p*$w/${LINEAS} ))" ""; dots=${dots// /.};
-    printf "\r\e[K|%-*s| %3d %% %s" "$w" "$dots" "$p" "$*"; 
-}
 
 #Comprobamos si el archivo de entrada existe
 if [ ! -f $ENTRADA ]; then
@@ -106,16 +100,17 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
         echo -e "$OK Generando combinaciones para $NOMBRE" 
         echo
 
-        #Para mostrar la última palabra generada
-        #while /bin/true; do
-        until [ $(ps -ef | grep -v grep | grep -c dicGenerator.sh) -le 2 ] ; do
-            echo -ne "\\rÚltima entrada:\\t\\t$(tail -1 $SALIDA)" 
-            if [ $(ps -ef | grep -v grep | grep -c dicGenerator.sh) -le 2 ]; then
-                break
-            fi
-            sleep 1
-        done &
-
+        if [ $VERBOSE = 1 ]; then
+            #Para mostrar la última palabra generada
+            #while /bin/true; do
+            until [ $(ps -ef | grep -v grep | grep -c dicGenerator.sh) -le 2 ] ; do
+                echo -ne "\\rÚltima entrada:\\t\\t$(tail -1 $SALIDA)" 
+                if [ $(ps -ef | grep -v grep | grep -c dicGenerator.sh) -le 2 ]; then
+                    break
+                fi
+                sleep 1
+            done &
+        fi
 
         CONTADOR=$((CONTADOR+1))
  
@@ -249,7 +244,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{00..99} | tr [:space:] \\n >> $SALIDA
             echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{000..999} | tr [:space:] \\n >> $SALIDA
             echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n >> $SALIDA
-            echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g'){01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
+            echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
             echo -e $(echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g')${SIMBOLOS:$1:1}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
 
             echo -e $(echo ${NOMBRE} | tr [:lower:] [:upper:])${SIMBOLOS:$1:1}{0..9} | tr [:space:] \\n >> $SALIDA
@@ -406,4 +401,3 @@ echo -e "Tiempo total: \\t\\t$TIEMPO"
 #echo -e "Tiempo total: \\t\\t$SECONDS segundos"
 echo
 echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito$NOCOL"
-
