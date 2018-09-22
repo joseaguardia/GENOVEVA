@@ -115,20 +115,47 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
         CONTADOR=$((CONTADOR+1))
  
         #Nombre normal, capitalizado, mayúsculas:
+        if [ $VERBOSE = 1 ]; then
+            echo "Generando 'nombres'"
+        fi
         echo $NOMBRE >> $SALIDA                                                             #Nombre
+        if [ $VERBOSE = 1 ]; then
+            echo "Generando 'Nombres'"
+        fi
         echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g' >> $SALIDA                         #Nombre Capitalizado
+        if [ $VERBOSE = 1 ]; then
+            echo "Generando 'NOMBRES'"
+        fi
         echo ${NOMBRE} | tr [:lower:] [:upper:] >> $SALIDA                                  #Nombre Mayúsculas
 
         #l33t completo de vocales:
+        if [ $VERBOSE = 1 ]; then
+            echo "Generando 'n0mbr3s'"
+        fi
         echo ${NOMBRE} | sed 'y/aeioAeio/43104310/' >> $SALIDA                                        #Nombre L33t Solo Vocales
+        if [ $VERBOSE = 1 ]; then
+            echo "Generando 'N0mbr3s'"
+        fi
         echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g' | sed 'y/aeioAEIO/43104310/' >> $SALIDA       #Nombe capitalizado L33t Solo vocales
+        if [ $VERBOSE = 1 ]; then
+            echo "Generando 'N0MBR3S'"
+        fi
         echo ${NOMBRE} | tr [:lower:] [:upper:] | sed 'y/aeioAEIO/43104310/' >> $SALIDA
        
         #l33t completo de vocales y 's' si lleva "S" el nombre:
         if [[ $NOMBRE == *[Ss]* ]]; then
 
+            if [ $VERBOSE = 1 ]; then
+                echo "Generando 'n0mbr3$'"
+            fi
             echo ${NOMBRE} | sed 'y/sSaeioAeio/$$43104310/' >> $SALIDA
+            if [ $VERBOSE = 1 ]; then
+                echo "Generando 'N0mbr3$'"
+            fi
             echo ${NOMBRE} | sed -e 's/^./\U&/g; s/ ./\U&/g' | sed 'y/sSaeioAEIO/$$43104310/' >> $SALIDA
+            if [ $VERBOSE = 1 ]; then
+                echo "Generando 'N0MBR3$'"
+            fi
             echo ${NOMBRE} | tr [:lower:] [:upper:] | sed 'y/sSaeioAEIO/$$43104310/' >> $SALIDA
         
         fi
