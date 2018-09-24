@@ -1249,3 +1249,4 @@ TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'$((%s/3600/24)) días %H horas %M m
 echo -e "Tiempo total: \\t\\t$TIEMPO"
 echo
 echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito$NOCOL"
+echo
