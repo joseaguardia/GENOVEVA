@@ -12,15 +12,26 @@ Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios':
 
 ```
 ./genoveva.sh -i inputFile -o outputFile [-v]
+./genoveva.sh -p "uno dos tres" -o outputFile [-v]
+
 
 -i: archivo de entrada que contiene las palabras base
+-p: listado de palabras entrecomilladas y separadas por espacios
 -o: archivo de salida para el diccionario
 -v: modo verbose. Muestra las combinaciones creadas
 ```
 
+
 ![captura](genoveva.png)
 
+
+
 ### Versiones
+
+v1.1
+- Agregada opción para pasar como entrada palabras en la sopciones del comando
+- Comprobaciones de los parámetros
+- Ajustes visuales
 
 v1.0
 - Versión base funcional
