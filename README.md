@@ -21,9 +21,9 @@ Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios':
 -v: modo verbose. Muestra las combinaciones creadas
 ```
 
-
-![captura](genoveva.png)
-
+<p align="center">
+ <img src="genoveva.png" />
+</p>
 
 
 ### Versiones
