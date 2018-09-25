@@ -673,7 +673,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             if [ $VERBOSE = 1 ]; then
                 echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradeceba${SIMBOLOS:$1:1}0000 -> soiradeceba${SIMBOLOS:$1:1}9999'$NOCOL"
             fi
-            echo -e ${NREV}{0000..9999} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NREV}${SIMBOLOS:$1:1}{0000..9999} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
                 echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradeceba${SIMBOLOS:$1:1}010100 -> soiradeceba${SIMBOLOS:$1:1}311299'$NOCOL"
             fi
