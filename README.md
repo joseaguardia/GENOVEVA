@@ -22,8 +22,8 @@ Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios':
 
 ### Versiones
 
-Setiembre 2018:
 v1.0
+- Versión base funcional
 
 
 ## Extras
