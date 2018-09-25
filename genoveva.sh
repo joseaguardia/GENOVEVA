@@ -7,6 +7,7 @@ NOCOL='\e[0m' # No Color
 GREEN='\e[1;32m'
 BLUE='\e[1;34m'
 RED='\e[1;31m'
+MAGENTA='\e[1;35m'
 OK="[${GREEN}✓${NOCOL}]"
 KO="[${RED}✗${NOCOL}]"
 
@@ -23,15 +24,18 @@ printHelp() {
     echo "Uso:"
     echo "$0 -i inputFile -o outputFile [-v]"
     echo "-i: archivo de entrada que contienen las palabras base"
-    echo "-o: archivo de salida"
-    echo "-v: modo verbose. Muestra la última entrada generada y otra información"
+    echo "-o: archivo de salida para el diccionario"
+    echo "-v: modo verbose. Muestra las combinaciones creadas"
+    echo
 }
 
 printInfo() {
     echo
-    echo "Genera desde una lista de nombres un diccionario para ataques de fuerza bruta."
-    echo "Incluye el nombre con fechas, números, sustitución de vocales por números..."
-    echo ""
+    echo "Desde un listado de palabras, genera 17335754 combinaciones por cada palabra, mezclando minúsculas, capitalizada, "
+    echo "mayúsculas, escritura L33T (completa e individual por cada vocal y "s"), reverso, números de 1 a 4 cifras, fechas en formato "
+    echo "mmddyyyy de 1950 a 2020, formato de fecha mmddyy, símbolos al final, símbolos entre nombre y fecha..."
+    echo "https://github.com/joseaguardia/GENOVEVA"
+    echo
    }
 
 
@@ -57,11 +61,24 @@ printInfo() {
     done
 
 
+echo -e $MAGENTA
+echo " .88888.   88888888b 888888ba   .88888.  dP     dP  88888888b dP     dP  .d888888  ";
+echo "d8'   \`88  88        88    \`8b d8'   \`8b 88     88  88        88     88 d8'    88  ";
+echo "88        a88aaaa    88     88 88     88 88    .8P a88aaaa    88    .8P 88aaaaa88a ";
+echo "88   YP88  88        88     88 88     88 88    d8'  88        88    d8' 88     88  ";
+echo "Y8.   .88  88        88     88 Y8.   .8P 88  .d8P   88        88  .d8P  88     88  ";
+echo " \`88888'   88888888P dP     dP  \`8888P'  888888'    88888888P 888888'   88     88  ";
+echo -e "$NOCOL"
+echo -e "$(tput bold)                ---  Generador de nombres veloz y variado   ---     $(tput sgr0)"
+
+
+
 #Comprobamos si el archivo de entrada existe
 if [ ! -f $ENTRADA ]; then
 
     echo
-	  echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de entrada $ENTRADA no existe"
+	echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de entrada $ENTRADA no existe"
+    echo
     exit 1
 
 fi
@@ -72,6 +89,7 @@ if [ -f $SALIDA ]; then
 
     echo
     echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de salida $SALIDA ya existe"
+    echo
     exit 1
 
 fi
@@ -83,6 +101,7 @@ if [ ! -w $RUTA ]; then
 
     echo
     echo -e "$KO ${RED}ERROR:${NOCOL} No se puede escribir en la ruta $RUTA"
+    echo
     exit 1
 
 fi
@@ -94,10 +113,13 @@ echo
 echo -e "$OK ${GREEN}[TODO OK!]${NOCOL} Comenzamos a crear el diccionario"
 echo
 echo -e "Palabras de entrada: \t\t$LINEAS"
-echo -e "Combinaciones a crear: $(tput bold)\t\t$(expr $LINEAS \* $COMBOS ) $(tput sgr0)"
-echo -e "Tamaño de fichero est.:\t\t$(expr $LINEAS \* 337)MB"
+echo -e "Combinaciones máximas a crear: $(tput bold)\t$(expr $LINEAS \* $COMBOS ) $(tput sgr0)"
+echo -e "Tamaño de fichero máximo:\t$(expr $LINEAS \* 337)MB"
 echo
-pause 5
+
+sleep  5
+
+
 #Limpiamos la entrada de tildes, espacios, líneas vacias, pasamos a minúsculas...
 cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sort | uniq | sed 'y/áÁàÀãÃâÂéÉêÊíÍóÓõÕôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/' | while read NOMBRE
 
@@ -1245,8 +1267,8 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
 echo
 echo -e "Palabras generadas: \\t$(tput bold)$(wc -l $SALIDA | awk '{print $1}')$(tput sgr0)"
 echo -e "Tamaño de archivo: \\t$( du -lh $SALIDA | cut -f1)"
-TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'$((%s/3600/24)) días %H horas %M minutos %S segundos')")
+TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%H h %M m %S s')")
 echo -e "Tiempo total: \\t\\t$TIEMPO"
 echo
-echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito$NOCOL"
+echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito $NOCOL"
 echo
