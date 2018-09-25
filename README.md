@@ -29,8 +29,8 @@ Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios':
 ### Versiones
 
 v1.1
-- Agregada opción para pasar como entrada palabras en la sopciones del comando
-- Comprobaciones de los parámetros
+- Ahora es posible pasar como entrada palabras en las opciones del comando (-p)
+- Comprobaciones en los parámetros para evitar errores
 - Ajustes visuales
 
 v1.0
@@ -41,4 +41,4 @@ v1.0
 
 [Aquí tenéis disponible un listado que he recopilado de nombres propios en español](nombresEspañol.txt)
 
-Yo me lo pensaría antes de pasarlo completo por GENOVEVA, ya que el archivo de salida tendría 355G (18687942812 entradas) :)
+Yo me lo pensaría antes de pasarlo completo por GENOVEVA, ya que el archivo de salida tendría **355G** (18687942812 entradas) :)
