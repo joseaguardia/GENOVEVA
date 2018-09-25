@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VERSION="1.1"
+
 clear
 
 #Colores y marcas
@@ -16,7 +18,7 @@ SIMBOLOS=",.-_!%*+\$"
 
 VERBOSE=0
 SECONDS=0
-COMBOS=17335754    #Combinaciones estimadas por palabra
+COMBOS=17335754    #Combinaciones máximas por palabra
 
 
 printHelp() {
@@ -39,6 +41,16 @@ printInfo() {
    }
 
 
+echo -e $MAGENTA
+echo " .88888.   88888888b 888888ba   .88888.  dP     dP  88888888b dP     dP  .d888888  ";
+echo "d8'   \`88  88        88    \`8b d8'   \`8b 88     88  88        88     88 d8'    88  ";
+echo "88        a88aaaa    88     88 88     88 88    .8P a88aaaa    88    .8P 88aaaaa88a ";
+echo "88   YP88  88        88     88 88     88 88    d8'  88        88    d8' 88     88  ";
+echo "Y8.   .88  88        88     88 Y8.   .8P 88  .d8P   88        88  .d8P  88     88  ";
+echo " \`88888'   88888888P dP     dP  \`8888P'  888888'    88888888P 888888'   88     88  ";
+echo -e "$NOCOL"
+echo -e "$(tput bold)          ---  Generador de nombres veloz y variado v$VERSION  ---     $(tput sgr0)"
+
 #Lanzamos la ayuda si falta algo
     if [ $# -eq 0 ]; then
         printInfo
@@ -48,8 +60,13 @@ printInfo() {
 
 
 #Pasamos como parámetros las opciones
-    while getopts i:o:v OPT $@; do
+    while getopts "p:i:o:v" OPT; do
             case $OPT in
+                p) # palabras de entrada
+                   #set -f
+                   #IFS=','
+                   PALABRAS="$OPTARG"
+                   ;;
                 i) # archivo de entrada
                    ENTRADA="$OPTARG"
                    ;;
@@ -57,32 +74,51 @@ printInfo() {
                    SALIDA="$OPTARG"
                    ;;
                 v) VERBOSE=1
+                   ;;
+                *) #opciones no reconocidas
+                   echo -e "$KO $RED ERROR:$NOCOL opción no reconocida"
+                   printHelp  
+                   exit 2
+                   ;;
             esac
     done
 
 
-echo -e $MAGENTA
-echo " .88888.   88888888b 888888ba   .88888.  dP     dP  88888888b dP     dP  .d888888  ";
-echo "d8'   \`88  88        88    \`8b d8'   \`8b 88     88  88        88     88 d8'    88  ";
-echo "88        a88aaaa    88     88 88     88 88    .8P a88aaaa    88    .8P 88aaaaa88a ";
-echo "88   YP88  88        88     88 88     88 88    d8'  88        88    d8' 88     88  ";
-echo "Y8.   .88  88        88     88 Y8.   .8P 88  .d8P   88        88  .d8P  88     88  ";
-echo " \`88888'   88888888P dP     dP  \`8888P'  888888'    88888888P 888888'   88     88  ";
-echo -e "$NOCOL"
-echo -e "$(tput bold)                ---  Generador de nombres veloz y variado   ---     $(tput sgr0)"
+#Comprobamos que solo haya un método de entrada
+if [ ! -z $ENTRADA ] && [ ! -z "$PALABRAS" ]; then
 
+    echo
+	echo -e "$KO ${RED}ERROR:${NOCOL} Solo es posible un método de entrada: archivo o listado"
+    echo
+    printHelp
+    exit 1
+    
+fi
+
+#Comprobamos si la variable de entrada y salida son válidas:
+if [ -z "$PALABRAS" ]; then
+  if [ -z $ENTRADA ] || [ -z $SALIDA ]; then
+
+    echo
+	echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de entrada o salida no son válidos"
+    echo
+    printHelp
+    exit 1
+  fi  
+fi
 
 
 #Comprobamos si el archivo de entrada existe
-if [ ! -f $ENTRADA ]; then
+if [ -z "$PALABRAS" ]; then
+  if [ ! -f $ENTRADA ]; then
 
     echo
 	echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de entrada $ENTRADA no existe"
     echo
+    printHelp
     exit 1
-
+  fi
 fi
-
 
 #Comprobamos si el archivo de salida ya existe
 if [ -f $SALIDA ]; then
@@ -90,6 +126,7 @@ if [ -f $SALIDA ]; then
     echo
     echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de salida $SALIDA ya existe"
     echo
+    printHelp
     exit 1
 
 fi
@@ -102,9 +139,32 @@ if [ ! -w $RUTA ]; then
     echo
     echo -e "$KO ${RED}ERROR:${NOCOL} No se puede escribir en la ruta $RUTA"
     echo
+    printHelp
     exit 1
 
 fi
+
+
+#Si tenemos palabras de entrada, creamos un archivo de entrada temporal
+if [ ! -z "$PALABRAS" ]; then
+
+    tr [:space:] \\n <<< $PALABRAS > /tmp/genoveva.tmp
+    #Comprobamos que se haya creado correctamente
+    if [ -f /tmp/genoveva.tmp ]; then
+
+        ENTRADA="/tmp/genoveva.tmp"
+
+    else
+
+        echo
+        echo -e "$KO ${RED}ERROR:${NOCOL} No se ha podido escribir en /tmp. Prueba usando la opción -i"
+        echo
+        printHelp
+        exit 1
+
+    fi
+fi
+
 
 #Sacamos el número de palabras de entrada
 LINEAS=$(cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sort | uniq | wc -l)
@@ -1267,7 +1327,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
 echo
 echo -e "Palabras generadas: \\t$(tput bold)$(wc -l $SALIDA | awk '{print $1}')$(tput sgr0)"
 echo -e "Tamaño de archivo: \\t$( du -lh $SALIDA | cut -f1)"
-TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%H h %M m %S s')")
+TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%Hh %Mm %Ss')")
 echo -e "Tiempo total: \\t\\t$TIEMPO"
 echo
 echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito $NOCOL"
