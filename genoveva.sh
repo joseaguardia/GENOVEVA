@@ -25,7 +25,9 @@ printHelp() {
     echo
     echo "Uso:"
     echo "$0 -i inputFile -o outputFile [-v]"
+    echo "$0 -p \"uno dos tres\"  -o outputFile [-v]"
     echo "-i: archivo de entrada que contienen las palabras base"
+    echo "-p: listado de palabras entrecomilladas y separadas por espacios"
     echo "-o: archivo de salida para el diccionario"
     echo "-v: modo verbose. Muestra las combinaciones creadas"
     echo
@@ -49,7 +51,7 @@ echo "88   YP88  88        88     88 88     88 88    d8'  88        88    d8' 88
 echo "Y8.   .88  88        88     88 Y8.   .8P 88  .d8P   88        88  .d8P  88     88  ";
 echo " \`88888'   88888888P dP     dP  \`8888P'  888888'    88888888P 888888'   88     88  ";
 echo -e "$NOCOL"
-echo -e "$(tput bold)          ---  Generador de nombres veloz y variado v$VERSION  ---     $(tput sgr0)"
+echo -e "$(tput bold)              ---  Generador de nombres veloz y variado v$VERSION  ---     $(tput sgr0)"
 
 #Lanzamos la ayuda si falta algo
     if [ $# -eq 0 ]; then
@@ -148,6 +150,9 @@ fi
 #Si tenemos palabras de entrada, creamos un archivo de entrada temporal
 if [ ! -z "$PALABRAS" ]; then
 
+    #Borramos el archivo si existe
+    [ -e /tmp/genoveva.tmp ] && rm -f /tmp/genoveva.tmp
+
     tr [:space:] \\n <<< $PALABRAS > /tmp/genoveva.tmp
     #Comprobamos que se haya creado correctamente
     if [ -f /tmp/genoveva.tmp ]; then
@@ -157,7 +162,7 @@ if [ ! -z "$PALABRAS" ]; then
     else
 
         echo
-        echo -e "$KO ${RED}ERROR:${NOCOL} No se ha podido escribir en /tmp. Prueba usando la opción -i"
+        echo -e "$KO ${RED}ERROR:${NOCOL} No se ha podido escribir en /tmp. Prueba usando la opción '-i archivoEntrada'"
         echo
         printHelp
         exit 1
