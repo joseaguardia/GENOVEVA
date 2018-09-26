@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="RC1.2"
+VERSION="1.2RC"
 
 clear
 
