@@ -14,7 +14,7 @@ OK="[${GREEN}✓${NOCOL}]"
 KO="[${RED}✗${NOCOL}]"
 
 #Editar esta variable para quitar/añadir símbolos
-SIMBOLOS=",.-_!%*+\$"
+CARACTERES="-_!,.%*+\$"
 
 VERBOSE=0
 SECONDS=0
