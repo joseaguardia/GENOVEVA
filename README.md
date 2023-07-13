@@ -5,10 +5,30 @@
 Desde un listado de palabras, genera **17335754 combinaciones por cada palabra**, mezclando minúsculas, capitalizada, mayúsculas, escritura L33T (completa e individual por cada vocal y "s"), reverso, números de 1 a 4 cifras, fechas en formato mmddyyyy de 1950 a 2030, formato de fecha mmddyy, símbolos al final, símbolos entre nombre y fecha...
 
 Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios': 
-[ejemplo.txt](ejemplo.txt)
+[ejemplo.txt](ejemplo.txt) Estos son algunos ejemplos:
 
+```Abecedario+09052016
+oiradecebA+30111954
+4beced4rio%271193
+ab3c3dario,051132
+oiradecebA,280353
+Abecedari0_120842
+Ab3c3dario%150346
+abecedar1o+010931
+abecedario+090676
+abecedar1o-9810
+4BECED4RIO+2117
+4BECED4RIO+4145
+oiradeceba*290147
+AB3C3DARIO+050560
+ABECEDARIO,110272
+abecedar1o+020268
+Abecedari0-25101959
+4b3c3d4r10!060182
+ABECEDAR1O!150390
+AB3C3DARIO,11081999
+```
 
-## Uso:
 
 ```
 Uso:
