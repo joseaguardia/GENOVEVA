@@ -13,7 +13,7 @@ Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios':
 ```
 Uso:
 ./genoveva.sh -i inputFile -o outputFile [-vs]
-./genoveva.sh -p "uno dos tres"  -o outputFile [-vs]
+./genoveva.sh -p "uno dos tres" -o outputFile [-vs]
 
 -i: archivo de entrada que contienen las palabras base
 -p: listado de palabras entrecomilladas y separadas por espacios
@@ -30,7 +30,9 @@ Uso:
 
 
 ### Versiones
-
+v1.5
+- Ampliada las fechas de 2020 a 2030
+  
 v1.4
 - Añadida función -m para generar al rededor de un 50% menos de combinaciones (quita todas las 'reverse' y algunos símbolos). De 17335754 máximas por palabra a 8070102)
 - Corregido error por el que el script no terminaba correctamente.
