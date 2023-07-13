@@ -9,9 +9,9 @@ Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios':
 
 ```Abecedario+09052016
 oiradecebA+30111954
-4beced4rio%271193
+4beced4rio%
 ab3c3dario,051132
-oiradecebA,280353
+oiradecebA,2
 Abecedari0_120842
 Ab3c3dario%150346
 abecedar1o+010931
