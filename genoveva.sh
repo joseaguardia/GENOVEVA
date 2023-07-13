@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="1.4"
+VERSION="1.5"
 
 clear
 
@@ -41,7 +41,7 @@ printInfo() {
     echo
     echo "Desde un listado de palabras, genera 17335754 combinaciones por cada palabra, mezclando minúsculas, capitalizada, "
     echo "mayúsculas, escritura L33T (completa e individual por cada vocal y "s"), reverso, números de 1 a 4 cifras, fechas en formato "
-    echo "mmddyyyy de 1950 a 2020, formato de fecha mmddyy, símbolos al final, símbolos entre nombre y fecha..."
+    echo "mmddyyyy de 1950 a 2030, formato de fecha mmddyy, símbolos al final, símbolos entre nombre y fecha..."
     echo
     echo -e  "\thttps://github.com/joseaguardia/GENOVEVA \t\t\thttps://twitter.com/jose_a_guardia"
     echo
@@ -651,36 +651,36 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
 
         #Fechas ddmmyyyy
         if [ $VERBOSE = 1 ]; then
-            echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedarios01011950 -> abecedarios31122020'$NOCOL"
+            echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedarios01011950 -> abecedarios31122030'$NOCOL"
         fi
-        echo -e ${NOMBRE}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+        echo -e ${NOMBRE}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
         if [ $VERBOSE = 1 ]; then
-            echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedarios01011950 -> Abecedarios31122020'$NOCOL"
+            echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedarios01011950 -> Abecedarios31122030'$NOCOL"
         fi
-        echo -e ${NCAP}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+        echo -e ${NCAP}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
         if [ $VERBOSE = 1 ]; then
-            echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARIOS01011950 -> ABECEDARIOS31122020'$NOCOL"
+            echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARIOS01011950 -> ABECEDARIOS31122030'$NOCOL"
         fi
-        echo -e ${NMAY}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+        echo -e ${NMAY}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
         if [ $MINIMO = 0 ]; then
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradeceba01011950 -> soiradeceba31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradeceba01011950 -> soiradeceba31122030'$NOCOL"
             fi
-            echo -e ${NREV}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NREV}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradecebA01011950 -> soiradecebA31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradecebA01011950 -> soiradecebA31122030'$NOCOL"
             fi
-            echo -e ${NCAPREV}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NCAPREV}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Soiradeceba01011950 -> Soiradeceba31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Soiradeceba01011950 -> Soiradeceba31122030'$NOCOL"
             fi
-            echo -e ${NREVCAP}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NREVCAP}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'SOIRADECEBA01011950 -> SOIRADECEBA31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'SOIRADECEBA01011950 -> SOIRADECEBA31122030'$NOCOL"
             fi
-            echo -e ${NREVMAY}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NREVMAY}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
         fi
 
 
@@ -746,9 +746,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             fi
             echo -e ${NOMBRE}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedarios${SIMBOLOS}01011950 -> abecedarios${SIMBOLOS}31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedarios${SIMBOLOS}01011950 -> abecedarios${SIMBOLOS}31122030'$NOCOL"
             fi
-            echo -e ${NOMBRE}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NOMBRE}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
             if [ $VERBOSE = 1 ]; then
                 echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedarios${SIMBOLOS}0 -> Abecedarios${SIMBOLOS}9'$NOCOL"
@@ -771,9 +771,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             fi
             echo -e ${NCAP}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedarios${SIMBOLOS}01011950 -> Abecedarios${SIMBOLOS}31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedarios${SIMBOLOS}01011950 -> Abecedarios${SIMBOLOS}31122030'$NOCOL"
             fi
-            echo -e ${NCAP}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NCAP}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
             if [ $VERBOSE = 1 ]; then
                 echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARIOS${SIMBOLOS}0 -> ABECEDARIOS${SIMBOLOS}9'$NOCOL"
@@ -796,9 +796,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             fi
             echo -e ${NMAY}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARIOS${SIMBOLOS}01011950 -> ABECEDARIOS${SIMBOLOS}31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARIOS${SIMBOLOS}01011950 -> ABECEDARIOS${SIMBOLOS}31122030'$NOCOL"
             fi
-            echo -e ${NMAY}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${NMAY}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
             if [ $MINIMO = 0 ]; then
@@ -823,9 +823,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${NREV}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradeceba${SIMBOLOS}01011950 -> soiradeceba${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradeceba${SIMBOLOS}01011950 -> soiradeceba${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${NREV}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${NREV}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
                 if [ $VERBOSE = 1 ]; then
@@ -849,9 +849,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${NREVCAP}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Soiradeceba${SIMBOLOS}01011950 -> Soiradeceba${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Soiradeceba${SIMBOLOS}01011950 -> Soiradeceba${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${NREVCAP}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${NREVCAP}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 if [ $VERBOSE = 1 ]; then
                     echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradecebA${SIMBOLOS}0 -> soiradecebA${SIMBOLOS}9'$NOCOL"
@@ -874,9 +874,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${NCAPREV}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradecebA${SIMBOLOS}01011950 -> soiradecebA${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'soiradecebA${SIMBOLOS}01011950 -> soiradecebA${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${NCAPREV}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${NCAPREV}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 if [ $VERBOSE = 1 ]; then
                     echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'SOIRADECEBA${SIMBOLOS}0 -> SOIRADECEBA${SIMBOLOS}9'$NOCOL"
@@ -899,9 +899,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${NREVMAY}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'SOIRADECEBA${SIMBOLOS}01011950 -> SOIRADECEBA${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'SOIRADECEBA${SIMBOLOS}01011950 -> SOIRADECEBA${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${NREVMAY}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${NREVMAY}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
             fi
 
@@ -927,9 +927,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             fi
             echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4b3c3d4r10s${SIMBOLOS}01011950 -> 4b3c3d4r10s${SIMBOLOS}31122020'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4b3c3d4r10s${SIMBOLOS}01011950 -> 4b3c3d4r10s${SIMBOLOS}31122030'$NOCOL"
             fi
-            echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
             N="$(sed -e 's/^./\U&/g; s/ ./\U&/g' <<< $NOMBRE | sed 'y/aeioAeio/43104310/')"
             echo -e ${N}${SIMBOLOS}{0..9} | tr [:space:] \\n >> $SALIDA
@@ -937,7 +937,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
             echo -e ${N}${SIMBOLOS}{000..999} | tr [:space:] \\n >> $SALIDA
             echo -e ${N}${SIMBOLOS}{0000..9999} | tr [:space:] \\n >> $SALIDA
             echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
-            echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+            echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
             if [[ $NOMBRE == *[Ss]* ]]; then
@@ -964,9 +964,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4b3c3d4r10\$${SIMBOLOS}01011950 -> 4b3c3d4r10\$${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4b3c3d4r10\$${SIMBOLOS}01011950 -> 4b3c3d4r10\$${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/sS/$$/' <<< $NOMBRE)"
                 if [ $VERBOSE = 1 ]; then
@@ -990,9 +990,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedario\$${SIMBOLOS}01011950 -> abecedario\$${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedario\$${SIMBOLOS}01011950 -> abecedario\$${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/sS/$$/' <<< $NCAP)"
                 if [ $VERBOSE = 1 ]; then
@@ -1016,9 +1016,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedario\$${SIMBOLOS}01011950 -> Abecedario\$${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedario\$${SIMBOLOS}01011950 -> Abecedario\$${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/sS/$$/' <<< $NMAY)"
                 if [ $VERBOSE = 1 ]; then
@@ -1042,9 +1042,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARIO\$${SIMBOLOS}01011950 -> ABECEDARIO\$${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARIO\$${SIMBOLOS}01011950 -> ABECEDARIO\$${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
             fi
@@ -1073,9 +1073,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4beced4rios${SIMBOLOS}01011950 -> 4beced4rios${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4beced4rios${SIMBOLOS}01011950 -> 4beced4rios${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/aA/44/' <<< $NCAP)"
                 if [ $VERBOSE = 1 ]; then
@@ -1099,9 +1099,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4beced4rios${SIMBOLOS}01011050 -> 4beced4rios${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4beced4rios${SIMBOLOS}01011050 -> 4beced4rios${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/aA/44/' <<< $NMAY)"
                 if [ $VERBOSE = 1 ]; then
@@ -1125,9 +1125,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4BECED4RIOS${SIMBOLOS}01011950 -> 4BECED4RIOS${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4BECED4RIOS${SIMBOLOS}01011950 -> 4BECED4RIOS${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
             fi
@@ -1158,9 +1158,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ab3c3darios${SIMBOLOS}01011950 -> ab3c3darios${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ab3c3darios${SIMBOLOS}01011950 -> ab3c3darios${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/eE/33/' <<< $NCAP)"
                 if [ $VERBOSE = 1 ]; then
@@ -1184,9 +1184,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Ab3c3darios${SIMBOLOS}01011950 -> Ab3c3darios${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Ab3c3darios${SIMBOLOS}01011950 -> Ab3c3darios${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/eE/33/' <<< $NMAY)"
                 if [ $VERBOSE = 1 ]; then
@@ -1210,9 +1210,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'AB3C3DARIOS${SIMBOLOS}01011950 -> AB3C3DARIOS${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'AB3C3DARIOS${SIMBOLOS}01011950 -> AB3C3DARIOS${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
             fi
@@ -1241,9 +1241,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedar1os${SIMBOLOS}01011950 -> abecedar1os${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedar1os${SIMBOLOS}01011950 -> abecedar1os${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/iI/11/' <<< $NCAP)"
                 if [ $VERBOSE = 1 ]; then
@@ -1267,9 +1267,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedar1os${SIMBOLOS}01011950 -> Abecedar1os${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedar1os${SIMBOLOS}01011950 -> Abecedar1os${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/iI/11/' <<< $NMAY)"
                 if [ $VERBOSE = 1 ]; then
@@ -1293,9 +1293,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDAR1OS${SIMBOLOS}01011950 -> ABECEDAR1OS${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDAR1OS${SIMBOLOS}01011950 -> ABECEDAR1OS${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
             fi
@@ -1324,9 +1324,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedari0s${SIMBOLOS}01011950 -> abecedari0s${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'abecedari0s${SIMBOLOS}01011950 -> abecedari0s${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/oO/00/' <<< $NCAP)"
                 if [ $VERBOSE = 1 ]; then
@@ -1350,9 +1350,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedari0s${SIMBOLOS}01011950 -> Abecedari0s${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Abecedari0s${SIMBOLOS}01011950 -> Abecedari0s${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
                 N="$(sed 'y/oO/00/'<<< $NMAY)"
                 if [ $VERBOSE = 1 ]; then
@@ -1376,9 +1376,9 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
                 fi
                 echo -e ${N}${SIMBOLOS}{01..31}{01..12}{00..99} | tr [:space:] \\n >> $SALIDA
                 if [ $VERBOSE = 1 ]; then
-                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARI0S${SIMBOLOS}01011950 -> ABECEDARI0S${SIMBOLOS}31122020'$NOCOL"
+                    echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'ABECEDARI0S${SIMBOLOS}01011950 -> ABECEDARI0S${SIMBOLOS}31122030'$NOCOL"
                 fi
-                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2020} | tr [:space:] \\n >> $SALIDA
+                echo -e ${N}${SIMBOLOS}{01..31}{01..12}{1950..2030} | tr [:space:] \\n >> $SALIDA
 
 
             fi
