@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#TODO
+# No genera muchas combinaciones, como textoNumeroSímbolo
+
 VERSION="1.5"
 
 clear
@@ -349,7 +352,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
 
         if [[ $NOMBRE == *[eE]* ]]; then
             if [ $VERBOSE = 1 ]; then
-                echo -e "\t[${SECONDS} s]\t${BLUE}Generando '4b3c3darios'$NOCOL"
+                echo -e "\t[${SECONDS} s]\t${BLUE}Generando 'Ab3c3darios'$NOCOL"
             fi
             echo ${NOMBRE} | sed 'y/eE/33/' >> $SALIDA
             if [ $VERBOSE = 1 ]; then
