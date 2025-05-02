@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#TODO
-# No genera muchas combinaciones, como textoNumeroSímbolo
 
-VERSION="1.5"
+VERSION="1.6"
 
 clear
 
@@ -27,24 +25,25 @@ MINIMO=0
 
 printHelp() {
     echo
-    echo "Uso:"
-    echo "$0 [-i inputFile|-l "listado de palabras"] -o outputFile [-vs]"
-    echo "-i: archivo de entrada que contienen las palabras base"
-    echo "-p: listado de palabras entrecomilladas y separadas por espacios"
-    echo "-o: archivo de salida para el diccionario"
-    echo "-s: Separa la salida en un archivo por cada palabra de entrada"
-    echo "    (un archivo de diccionario completo por cada nombre) "
-    echo "-m: modo mínimo. Genera menos combinaciones por cada palabra"
-    echo "-d: modo debug. bash -x"
-    echo "-v: modo verbose. Muestra las combinaciones creadas"
+    echo "Usage:"
+    echo "$0 [-i inputFile|-l word_list] -o outputFile [-vs]"
+    echo "-i: input file containing the base words"
+    echo "-p: quoted list of space-separated words"
+    echo "-o: output file for the dictionary"
+    echo "-s: Splits the output into one file per input word"
+    echo "    (a complete dictionary file for each name)"
+    echo "-m: minimal mode. Generates fewer combinations per word"
+    echo "-d: debug mode. bash -x"
+    echo "-v: verbose mode. Displays the created combinations"
     echo
 }
 
+
 printInfo() {
     echo
-    echo "Desde un listado de palabras, genera 17335754 combinaciones por cada palabra, mezclando minúsculas, capitalizada, "
-    echo "mayúsculas, escritura L33T (completa e individual por cada vocal y "s"), reverso, números de 1 a 4 cifras, fechas en formato "
-    echo "mmddyyyy de 1950 a 2030, formato de fecha mmddyy, símbolos al final, símbolos entre nombre y fecha..."
+    echo "From a word list, it generates **17,335,754 combinations per word, mixing lowercase, capitalized, uppercase,"
+    echo "full and partial L33T (for each vowel and s), reverse, numbers from 1 to 4 digits, dates in mmddyyyy"
+    echo "format from 1950 to 2030, date format mmddyy, symbols at the end, symbols between name and date..."
     echo
     echo -e  "\thttps://github.com/joseaguardia/GENOVEVA \t\t\thttps://twitter.com/jose_a_guardia"
     echo
