@@ -18,7 +18,9 @@ Usage:
 -v: verbose mode. Displays created combinations
 
 Example with the words "john" and "jane", using simple combinations and only 8 to 10 characters:
-./genoveva.sh -p "john jane" -o john_jane.txt -m -r 8-10
+
+`./genoveva.sh -p "john jane" -o john_jane.txt -m -r 8-10`
+
 
 ![image](https://github.com/user-attachments/assets/bd1cf64b-bed1-4973-a021-2a054e80efd1)
 
