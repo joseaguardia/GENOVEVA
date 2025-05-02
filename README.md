@@ -5,7 +5,7 @@
 From a word list, it generates **17,335,754 combinations per word**, mixing lowercase, capitalized, uppercase, full and partial L33T (for each vowel and "s"), reverse, numbers from 1 to 4 digits, dates in mmddyyyy format from 1950 to 2030, date format mmddyy, symbols at the end, symbols between name and date...
 
 Here you can check all the combinations for the example 'abecedarios':  
-[example.txt](other_stuffs/ejemplo.txt) Here are some examples:
+[example.txt](other_stuffs/example.txt) Here are some examples:
 
 ```
 Abecedario+09052016
@@ -83,6 +83,6 @@ v1.0
 
 
 ## Extras
-[Here you can find a list I compiled of Spanish proper names](othetr_stuffs/spanish_names.txt)
+[Here you can find a list I compiled of Spanish proper names](other_stuffs/spanish_names.txt)
 
 I’d think twice before running it fully through GENOVEVA, as the output file would be 355G (18,687,942,812 entries) :)
