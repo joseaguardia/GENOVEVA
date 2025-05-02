@@ -5,7 +5,7 @@
 From a word list, it generates **17,335,754 combinations per word**, mixing lowercase, capitalized, uppercase, full and partial L33T (for each vowel and "s"), reverse, numbers from 1 to 4 digits, dates in mmddyyyy format from 1950 to 2030, date format mmddyy, symbols at the end, symbols between name and date...
 
 Here you can check all the combinations for the example 'abecedarios':  
-[example.txt](other_stuffs/example.txt) Here are some examples:
+[example.txt](other_stuffs/abecedarios_example.txt) Here are some examples:
 
 ```
 Abecedario+09052016
