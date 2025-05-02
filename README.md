@@ -1,13 +1,14 @@
 # GENOVEVA
 
-"Generador de nombres veloz y variado"
+"Generador de nombres veloz y variado" ("Fast and varied name generator")
 
-Desde un listado de palabras, genera **17335754 combinaciones por cada palabra**, mezclando minúsculas, capitalizada, mayúsculas, escritura L33T (completa e individual por cada vocal y "s"), reverso, números de 1 a 4 cifras, fechas en formato mmddyyyy de 1950 a 2030, formato de fecha mmddyy, símbolos al final, símbolos entre nombre y fecha...
+From a word list, it generates **17,335,754 combinations per word**, mixing lowercase, capitalized, uppercase, full and partial L33T (for each vowel and "s"), reverse, numbers from 1 to 4 digits, dates in mmddyyyy format from 1950 to 2030, date format mmddyy, symbols at the end, symbols between name and date...
 
-Aquí se puede consultar todas las combinaciones para el ejemplo 'abecedarios': 
-[ejemplo.txt](ejemplo.txt) Estos son algunos ejemplos:
+Here you can check all the combinations for the example 'abecedarios':  
+[example.txt](other_stuffs/ejemplo.txt) Here are some examples:
 
-```Abecedario+09052016
+```
+Abecedario+09052016
 oiradecebA+30111954
 4beced4rio%
 ab3c3dario,051132
@@ -29,51 +30,59 @@ ABECEDAR1O!150390
 AB3C3DARIO,11081999
 ```
 
-
-```
-Uso:
+Usage:
 ./genoveva.sh -i inputFile -o outputFile [-vs]
-./genoveva.sh -p "uno dos tres" -o outputFile [-vs]
+./genoveva.sh -p "one two three" -o outputFile [-vs]
 
--i: archivo de entrada que contienen las palabras base
--p: listado de palabras entrecomilladas y separadas por espacios
--o: archivo de salida para el diccionario
--s: Separa la salida en un archivo por cada palabra de entrada
-    (un archivo de diccionario completo por cada nombre)
--m: modo mínimo. Genera menos combinaciones por cada palabra    
--v: modo verbose. Muestra las combinaciones creadas
-```
+-i: input file containing the base words
+-p: quoted list of space-separated words
+-o: output file for the dictionary
+-s: Splits output into one file per input word
+    (a full dictionary file for each name)
+-m: minimal mode. Generates fewer combinations per word
+-v: verbose mode. Displays created combinations
+
+
+
 
 <p align="center">
  <img src="genoveva.png" />
 </p>
 
 
-### Versiones
+### Changelog
 v1.5
-- Ampliada las fechas de 2020 a 2030
-  
+
+- Extended date range from 2020 to 2030
+
 v1.4
-- Añadida función -m para generar al rededor de un 50% menos de combinaciones (quita todas las 'reverse' y algunos símbolos). De 17335754 máximas por palabra a 8070102)
-- Corregido error por el que el script no terminaba correctamente.
+
+- Added -m option to generate around 50% fewer combinations (removes all 'reverse' and some symbols). From 17,335,754 max per word to 8,070,102)
+
+- Fixed bug where the script didn’t finish correctly
 
 v1.3
-- Añadida función para separar la salida en un archivo por cada nombre de entrada.
+
+- Added function to split output into a file per input name
 
 v1.2
-- Arreglado problema con los caracteres (solo se generaba para el primero).
+
+- Fixed character handling issue (only generated for the first one)
 
 v1.1
-- Ahora es posible pasar como entrada palabras en las opciones del comando (-p).
-- Comprobaciones en los parámetros para evitar errores.
-- Ajustes visuales.
+
+- Now possible to pass words directly via the -p command option
+
+- Parameter checks added to prevent errors
+
+- Visual tweaks
 
 v1.0
-- Versión base funcional.
+
+- Functional base version
 
 
 ## Extras
+[Here you can find a list I compiled of Spanish proper names](othetr_stuffs/spanish_names.txt)
 
-[Aquí tenéis disponible un listado que he recopilado de nombres propios en español](nombresEspañol.txt)
-
-Yo me lo pensaría antes de pasarlo completo por GENOVEVA, ya que el archivo de salida tendría **355G** (18687942812 entradas) :)
+I’d think twice before running it fully through GENOVEVA, as the output file would be 355G (18,687,942,812 entries) :)
