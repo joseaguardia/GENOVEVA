@@ -21,6 +21,7 @@ Example with the words "john" and "jane", using simple combinations and only 8 t
 ./genoveva.sh -p "john jane" -o john_jane.txt -m -r 8-10
 
 Some of the word generated:
+![image](https://github.com/user-attachments/assets/6a824c41-4ed2-42d6-b93d-2241adce3f7f)
 
 
 
