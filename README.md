@@ -20,14 +20,13 @@ Usage:
 Example with the words "john" and "jane", using simple combinations and only 8 to 10 characters:
 ./genoveva.sh -p "john jane" -o john_jane.txt -m -r 8-10
 
+![image](https://github.com/user-attachments/assets/bd1cf64b-bed1-4973-a021-2a054e80efd1)
+
+
 Some of the word generated:
 ![image](https://github.com/user-attachments/assets/6a824c41-4ed2-42d6-b93d-2241adce3f7f)
 
 
-
-<p align="center">
- <img src="genoveva.png" />
-</p>
 
 
 ### Changelog
