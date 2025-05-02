@@ -32,6 +32,7 @@ printHelp() {
     echo "-o: output file for the dictionary"
     echo "-s: Splits the output into one file per input word"
     echo "    (a complete dictionary file for each name)"
+    echo "-r: range of characters to use. Format: 8-12 or 10-10"
     echo "-m: minimal mode. Generates fewer combinations per word"
     echo "-d: debug mode. bash -x"
     echo "-v: verbose mode. Displays the created combinations"
@@ -59,6 +60,7 @@ echo "Y8.   .88  88        88     88 Y8.   .8P 88  .d8P   88        88  .d8P  88
 echo " \`88888'   88888888P dP     dP  \`8888P'  888888'    88888888P 888888'   88     88  ";
 echo -e "$NOCOL"
 echo -e "$(tput bold)              ---  Generador de nombres veloz y variado v$VERSION  ---     $(tput sgr0)"
+echo -e "$(tput bold)                 ---  Fast and varied name generator v$VERSION  ---     $(tput sgr0)"
 
 #Lanzamos la ayuda si falta algo
     if [ $# -eq 0 ]; then
@@ -68,8 +70,9 @@ echo -e "$(tput bold)              ---  Generador de nombres veloz y variado v$V
     fi
 
 
+
 #Pasamos como parámetros las opciones
-    while getopts "p:i:o:vsdm" OPT; do
+    while getopts "r:p:i:o:vsdm" OPT; do
             case $OPT in
                 p) # palabras de entrada
                    #set -f
@@ -86,6 +89,9 @@ echo -e "$(tput bold)              ---  Generador de nombres veloz y variado v$V
                    ;;
                 m) MINIMO=1
                    CARACTERES="-_.*+"
+                   ;;
+                r) # range
+                   CHAR_RANGE="$OPTARG"
                    ;;
                 v) VERBOSE=1
                    ;;
@@ -168,6 +174,18 @@ if [ ! -w $RUTA ]; then
 
 fi
 
+# Check if the character range is valid
+if [[ -n "$CHAR_RANGE" ]]; then
+  if [[ "$CHAR_RANGE" =~ ^[0-9]{1,2}-[0-9]{1,2}$ ]]; then
+    IFS='-' read -r RANGE_FROM RANGE_TO <<< "$CHAR_RANGE"
+  else
+    echo
+    echo -e "$KO ${RED}ERROR:${NOCOL} range option (-r) has an invalid format. It should be, for example, '8-12'."
+    echo
+    exit 1
+  fi
+fi
+
 
 #Si tenemos palabras de entrada, creamos un archivo de entrada temporal
 if [ ! -z "$PALABRAS" ]; then
@@ -197,18 +215,22 @@ fi
 LINEAS=$(cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sort | uniq | wc -l)
 
 echo
-echo -e "$OK ${GREEN}[TODO OK!]${NOCOL} Comenzamos a crear el diccionario"
+echo -e "$OK ${GREEN}[OK!]${NOCOL} Creating dictionary"
 echo
-echo -e "Palabras de entrada: \t\t$LINEAS"
+echo -e "Number of input words: \t$LINEAS"
 if [ $MINIMO = 1 ]; then
-    echo -e "ACTIVADO MODO MINIMO. SE SALTARÁN ALGUNAS COMBINACIONES"
-    echo -e "Combinaciones máximas a crear (en modo minimo): $(tput bold)\t$(expr $LINEAS \* $COMBOS ) $(tput sgr0)"
-    echo -e "Tamaño en disco máximo (en modo minimo):\t\t$(expr $LINEAS \* 134)MB"
+    echo -e "Some uncommon combinations will be skipped."
+    #echo -e "Maximum combination estimate to be created (minimum mode): $(tput bold)\t$(expr $LINEAS \* $COMBOS ) $(tput sgr0)"
+    echo -e "Approximate maximum size for the dictionary: \t$(expr $LINEAS \* 134)MB"
 else
-    echo -e "Combinaciones máximas a crear (en modo completo): $(tput bold)\t$(expr $LINEAS \* $COMBOS ) $(tput sgr0)"
-    echo -e "Tamaño en disco máximo (en modo completo):\t\t$(expr $LINEAS \* 288)MB"
+    #echo -e "Maximum combination estimate to be created (normal mode): $(tput bold)\t$(expr $LINEAS \* $COMBOS ) $(tput sgr0)"
+    echo -e "Approximate maximum size for the dictionary:\t$(expr $LINEAS \* 288)MB"
+    
+    if [[ -n "$CHAR_RANGE" ]]; then
+        echo
+        echo -e "Only passwords between $RANGE_FROM and $RANGE_TO characters will be generated."
+    fi
 fi
-
 
 echo
 
@@ -249,7 +271,7 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
         NREVMAY="$(tr [:lower:] [:upper:] <<< $NREV)"
 
 
-        echo -e "$OK Generando combinaciones para $NOMBRE"
+        echo -e "$OK Generating combinations for $NOMBRE"
         echo
 
 
@@ -1390,23 +1412,32 @@ cat $ENTRADA | tr -d " "  | tr "\t" "\n" | tr [:upper:] [:lower:] | grep . | sor
     done || exit 1
 
 
+
+if [[ -n "$RANGE_FROM" ]] && [[ -n "$RANGE_TO" ]]; then
+    awk "length >= $RANGE_FROM && length <= $RANGE_TO" $SALIDA > ${SALIDA}_from${RANGE_FROM}_to${RANGE_TO}_chars
+    rm $SALIDA
+    SALIDA="${SALIDA}_from${RANGE_FROM}_to${RANGE_TO}_chars"
+fi
+
+
+
 echo
 if [ $SPLIT = 1 ]; then
 
-    echo -e "Palabras generadas: \\t$(tput bold)$(wc -l *$SALIDA | tail -1 | awk '{print $1}')$(tput sgr0)"
-    echo -e "Tamaño de archivo: \\t$( du -ach $SALIDA | tail -1 | awk '{print $1}')"
+    echo -e "Words: \\t$(tput bold)$(wc -l *$SALIDA | tail -1 | awk '{print $1}')$(tput sgr0)"
+    echo -e "Size: \\t$( du -ach $SALIDA | tail -1 | awk '{print $1}')"
     TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%Hh %Mm %Ss')")
-    echo -e "Tiempo total: \\t\\t$TIEMPO"
+    echo -e "Total time: \\t\\t$TIEMPO"
     echo
-    echo -e "$GREEN Archivos generados con éxito $NOCOL"
+    echo -e "$GREEN File $(readlink -f $SALIDA) successfully generated $NOCOL"
     echo
 else
 
-    echo -e "Palabras generadas: \\t$(tput bold)$(wc -l $SALIDA | awk '{print $1}')$(tput sgr0)"
-    echo -e "Tamaño de archivo: \\t$( du -lh $SALIDA | cut -f1)"
+    echo -e "Words: \\t$(tput bold)$(wc -l $SALIDA | awk '{print $1}')$(tput sgr0)"
+    echo -e "Size: \\t$( du -lh $SALIDA | cut -f1)"
     TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%Hh %Mm %Ss')")
-    echo -e "Tiempo total: \\t\\t$TIEMPO"
+    echo -e "Total time: \\t\\t$TIEMPO"
     echo
-    echo -e "$GREEN Archivo $(readlink -f $SALIDA) generado con éxito $NOCOL"
+    echo -e "$GREEN File $(readlink -f $SALIDA) successfully generated $NOCOL"
     echo
 fi
