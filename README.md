@@ -5,7 +5,7 @@
 From a word list, it generates **17,335,754 combinations per word**, mixing lowercase, capitalized, uppercase, full and partial L33T (for each vowel and "s"), reverse, numbers from 1 to 4 digits, dates in mmddyyyy format from 1950 to 2030, date format mmddyy, symbols at the end, symbols between name and date...
 
 Here you can check all the combinations for the example 'abecedarios':  
-[example.txt](other_stuffs/abecedarios_example.txt) Here are some examples:
+[abecedarios_example.txt](other_stuffs/abecedarios_example.txt) Here are some examples:
 
 ```
 Abecedario+09052016
@@ -31,18 +31,31 @@ AB3C3DARIO,11081999
 ```
 
 Usage:
-./genoveva.sh -i inputFile -o outputFile [-vs]
-./genoveva.sh -p "one two three" -o outputFile [-vs]
+./genoveva.sh -i inputFile -o outputFile [-vsm] [-r 8-12]
 
 -i: input file containing the base words
 -p: quoted list of space-separated words
 -o: output file for the dictionary
 -s: Splits output into one file per input word
     (a full dictionary file for each name)
+-r: range of characters to use. Format: 8-12 or 10-10
 -m: minimal mode. Generates fewer combinations per word
 -v: verbose mode. Displays created combinations
 
+Example with the words "john" and "jane", using simple combinations and only 8 to 10 characters:
+./genoveva.sh -p "john jane" -o john_jane.txt -m -r 8-10
 
+Some of the word generated:
+J4ne+0246
+J4n3-2392
+J0hn+8653
+Jane260708
+J4NE+5483
+j0hn-4439
+Jan3-5411
+JANE*511
+J4NE+7375
+JOHN_0698
 
 
 <p align="center">
@@ -51,6 +64,13 @@ Usage:
 
 
 ### Changelog
+
+v1.6
+
+- Added option to generate only passwords within a character length range.
+
+- Some texts are now traduced to english.
+
 v1.5
 
 - Extended date range from 2020 to 2030
