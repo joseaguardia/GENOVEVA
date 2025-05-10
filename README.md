@@ -35,7 +35,7 @@ Some of the word generated:
 ![image](https://github.com/user-attachments/assets/6a824c41-4ed2-42d6-b93d-2241adce3f7f)
 
 
-**You can see all the example output** [here](other_stuffs/john_jane_example_minimal-8to10chars.txt)
+**You can see all the example output** [here](https://raw.githubusercontent.com/joseaguardia/GENOVEVA/refs/heads/master/other_stuffs/john_jane_example_minimal-8to10chars.txt)
 
 
 ## Extras
