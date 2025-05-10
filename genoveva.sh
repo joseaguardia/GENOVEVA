@@ -59,8 +59,7 @@ echo "88   YP88  88        88     88 88     88 88    d8'  88        88    d8' 88
 echo "Y8.   .88  88        88     88 Y8.   .8P 88  .d8P   88        88  .d8P  88     88  ";
 echo " \`88888'   88888888P dP     dP  \`8888P'  888888'    88888888P 888888'   88     88  ";
 echo -e "$NOCOL"
-echo -e "$(tput bold)              ---  Generador de nombres veloz y variado v$VERSION  ---     $(tput sgr0)"
-echo -e "$(tput bold)                 ---  Fast and varied name generator v$VERSION  ---     $(tput sgr0)"
+echo -e "$(tput bold)---  Fast and versatile name generator for custom brute force attacks v$VERSION  ---     $(tput sgr0)"
 
 #Lanzamos la ayuda si falta algo
     if [ $# -eq 0 ]; then
