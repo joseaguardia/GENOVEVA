@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-VERSION="1.6"
+VERSION="1.7"
 
 clear
 
@@ -142,7 +142,7 @@ if [ -z "$PALABRAS" ]; then
   if [ ! -f $ENTRADA ]; then
 
     echo
-	echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de entrada $ENTRADA no existe"
+	echo -e "$KO ${RED}ERROR:${NOCOL} Input file $ENTRADA does not exist"
     echo
     printHelp
     exit 1
@@ -153,7 +153,7 @@ fi
 if [ -f $SALIDAORIG ]; then
 
     echo
-    echo -e "$KO ${RED}ERROR:${NOCOL} El archivo de salida $SALIDAORIG ya existe"
+    echo -e "$KO ${RED}ERROR:${NOCOL} Output file $SALIDAORIG already exists"
     echo
     printHelp
     exit 1
@@ -1418,25 +1418,24 @@ if [[ -n "$RANGE_FROM" ]] && [[ -n "$RANGE_TO" ]]; then
     SALIDA="${SALIDA}_from${RANGE_FROM}_to${RANGE_TO}_chars"
 fi
 
-
-
 echo
 if [ $SPLIT = 1 ]; then
 
     echo -e "Words: \\t$(tput bold)$(wc -l *$SALIDA | tail -1 | awk '{print $1}')$(tput sgr0)"
     echo -e "Size: \\t$( du -ach $SALIDA | tail -1 | awk '{print $1}')"
-    TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%Hh %Mm %Ss')")
-    echo -e "Total time: \\t\\t$TIEMPO"
-    echo
-    echo -e "$GREEN File $(readlink -f $SALIDA) successfully generated $NOCOL"
-    echo
+    
 else
 
     echo -e "Words: \\t$(tput bold)$(wc -l $SALIDA | awk '{print $1}')$(tput sgr0)"
     echo -e "Size: \\t$( du -lh $SALIDA | cut -f1)"
-    TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%Hh %Mm %Ss')")
-    echo -e "Total time: \\t\\t$TIEMPO"
-    echo
-    echo -e "$GREEN File $(readlink -f $SALIDA) successfully generated $NOCOL"
-    echo
+    
 fi
+
+TIEMPO=$(eval "echo $(date -ud "@$SECONDS" +'%Hh %Mm %Ss')")
+echo -e "Total time: \\t\\t$TIEMPO"
+echo
+echo -e "$GREEN File $(readlink -f $SALIDA) successfully generated $NOCOL"
+echo
+echo "Some of the words generated:"
+echo
+/usr/bin/shuf -n 64 $SALIDA | paste -d '\t' - - - - | column -s $'\t' -t

@@ -1,5 +1,9 @@
 # Changelog
 
+### v1.7
+
+- show some of the generated words when finished
+
 ### v1.6
 
 - Added an option to generate passwords within a specific character - length range.
