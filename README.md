@@ -5,7 +5,7 @@
 From a word list, it generates up to **17,335,754 combinations per word**, mixing lowercase, capitalized, uppercase, full and partial L33T (for each vowel and the letter "s"), reverse forms, numbers from 1 to 4 digits, dates in mmddyyyy format from 1950 to 2030, date format mmddyy, symbols at the end, symbols between name and date...
 
 ## Usage
-`./genoveva.sh -i inputFile -o outputFile [-vsm] [-r 8-12]`
+`./genoveva.sh -p "word1 word2" -o outputFile [-vsm] [-r 8-12]`
 
 Options
 
